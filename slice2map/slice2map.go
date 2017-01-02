@@ -4,13 +4,9 @@ import (
 	"strings"
 	"strconv"
 )
-/*
-input: ["ae1:1","ae2:0","ae3:0"]
-output: {"ae1":1,"ae2":0,"ae3":0}
- */
 
 const testVersion = 1
-//convert slice to map
+//convert slice to map where input: ["ae1:1","ae2:0","ae3:0"] and output: {"ae1":1,"ae2":0,"ae3":0}
 func Slice2Map(inputSlice []string) map[string]int {
 	outputMap :=  make(map[string]int,len(inputSlice))
 	for _, element:= range inputSlice {
