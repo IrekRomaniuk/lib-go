@@ -46,7 +46,7 @@ func pathExists(path string) (bool) {
 	if os.IsNotExist(err) { return false }
 	return true
 }
-
+//https://www.socketloop.com/tutorials/golang-validate-ip-address
 func validIP4(ip string) bool {
 	ip = strings.Trim(ip, " ")
 
