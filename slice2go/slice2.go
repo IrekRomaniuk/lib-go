@@ -12,7 +12,7 @@ type Target struct {
 	Action DoSomething
 }
 
-func doSomething (ip ...string) (string, error){ //ip address first and then whatever you need
+func doSomething (ip ...string) (string, error){ //ip address first and then whatever string you need
 	return ip[0], nil  //doNothing
 }
 /* do Something with each string (IP address) in Target hosts within given timeout
