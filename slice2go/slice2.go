@@ -13,7 +13,7 @@ type Target struct {
 }
 
 func doSomething (ip ...string) (string, error){ //ip address first and then whatever string you need
-	return ip[0], nil  //doNothing
+	return ip[0], nil  //doNothing, just return ip addreses
 }
 /* do Something with each string (IP address) in Target hosts within given timeout
 Input: Action and slice of target strings (IP addresses)
