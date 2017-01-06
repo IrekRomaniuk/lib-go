@@ -12,8 +12,8 @@ type Target struct {
 	Action DoSomething
 }
 
-func doSomething (ip string) (string, error){
-	return ip, nil  //doNothing
+func doSomething (ip ...string) (string, error){ //ip address first and then whatever you need
+	return ip[0], nil  //doNothing
 }
 /* do Something with each string (IP address) in Target hosts within given timeout
 Input: Action and slice of target strings (IP addresses)
