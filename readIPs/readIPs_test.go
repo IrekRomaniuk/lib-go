@@ -1,35 +1,23 @@
 package readIPs
 
-import "testing"
-
-func TestreadIPs(t *testing.T) {
-	type input struct {
-		ip, community, oid string
-	}
-	/*$ snmpget -v1 -c public 10.199.107.1 system.sysContact.0
-	$ snmpget -v2c -c public 10.199.107.1 .1.3.6.1.2.1.1.4.0
-	SNMPv2-MIB::sysContact.0 = STRING: irek romaniuk*/
-	var inputTest = input{"10.199.107.1","public","1.3.6.1.2.1.1.4.0"}  //system.sysContact.0
-	want := "irek romaniuk"
-
-	//func GoSNMP(ip string, community string, oid string) (result string, err error)
-	if output, _ := GoSNMP(inputTest.ip, inputTest.community, inputTest.oid); output != want {
-		t.Fatalf("sysContact: got %v, want %v",output, want)
-	}
-}
-
-
 import (
-"testing"
-. "github.com/smartystreets/goconvey/convey"
+	"testing"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestReadTargets(t *testing.T) {
-	Convey("Read iplist.txt from the same directory ", t, func() {
-		target := "./pinglist.txt"
+	Convey("File iplist.txt exists in the same directory ", t, func() {
+		target := "./iplist.txt"
 		hosts, _ := ReadIPs(target)
-		Convey("So iplist.txt should contain 3 items", func() {
-			So(len(hosts), ShouldEqual,3)
+		Convey("So iplist.txt should contain 4 valid IPs and more than one empty line", func() {
+			So(len(hosts), ShouldEqual,4)
+		})
+	})
+	Convey("File iplist.txt does not exists", t, func() {
+		target := "./tmp/xxx/iplist.txt"
+		_, err := ReadIPs(target)
+		Convey("So file iplist.txt does not exists", func() {
+			So(err.Error(), ShouldContainSubstring,"does not exist")
 		})
 	})
 }

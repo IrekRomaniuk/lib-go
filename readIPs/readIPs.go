@@ -4,8 +4,13 @@ import (
 	"os"
 	"bufio"
 	"fmt"
+	"strings"
+	"regexp"
 )
-
+/*
+Input: file with list of single ip addresses per line
+Output: slice with valid ip addresses
+ */
 func ReadIPs(target string) ([]string, error) {
 	if !pathExists(target) {
 		return nil, fmt.Errorf("File %s does not exist", target)
@@ -26,7 +31,10 @@ func readHosts(path string) ([]string, error) {
 		line := scanner.Text()
 		if line != "" {
 			// omit line if empty
-			lines = append(lines, scanner.Text())
+			if validIP4(line) {
+				lines = append(lines, scanner.Text())
+			}
+
 		}
 	}
 	return lines, scanner.Err()
@@ -37,4 +45,14 @@ func pathExists(path string) (bool) {
 	if err == nil { return true }
 	if os.IsNotExist(err) { return false }
 	return true
+}
+
+func validIP4(ip string) bool {
+	ip = strings.Trim(ip, " ")
+
+	re, _ := regexp.Compile(`^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`)
+	if re.MatchString(ip) {
+		return true
+	}
+	return false
 }
