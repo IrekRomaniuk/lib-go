@@ -7,7 +7,7 @@ import (
 
 func GoSNMP(ip string, community string, oid string) (result string, err error) {
 	log.Printf("Input: %v %v %v\n", ip, community, oid)
-	s, err1 := gosnmp.NewGoSNMP(ip, community, gosnmp.Version2c, 5)
+	s, err1 := gosnmp.NewGoSNMP(ip, community, gosnmp.Version2c, 5000)
 	if err1 != nil {
 		return "", err
 	}
