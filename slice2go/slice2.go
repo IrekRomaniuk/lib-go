@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-type DoSomething func(ip string) (string, error)
+type DoSomething func(ip string) (string, error) //This is to be able to mock func in testing
 
 type Target struct {
 	hosts []string
