@@ -9,9 +9,9 @@ import (
 type DoSomething func(ip ...string) (map[string]string, error)
 
 type Targets struct {
-	hosts []string
-	community string
-	oid string
+	Hosts []string
+	Community string
+	Oid string
 	Action DoSomething
 }
 
@@ -28,8 +28,8 @@ Output: slice of IP addresses for which Action succeeded (no error)
  */
 func RunIPs(p *Targets, timeout time.Duration) ([]string, error){
 	concur := 100
-	if len(p.hosts) < concur {
-		concur = len(p.hosts)
+	if len(p.Hosts) < concur {
+		concur = len(p.Hosts)
 	}
 	q := make(chan struct{}, concur) // make 100 parallel connections
 	wg := sync.WaitGroup{}
@@ -44,8 +44,8 @@ func RunIPs(p *Targets, timeout time.Duration) ([]string, error){
 		wg.Done()
 	}
 
-	wg.Add(len(p.hosts))
-	for _, host := range p.hosts {
+	wg.Add(len(p.Hosts))
+	for _, host := range p.Hosts {
 		q <- struct{}{}
 		go c(host)
 	}
