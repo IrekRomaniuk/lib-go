@@ -5,21 +5,28 @@ import (
 	"sync"
 )
 
-type DoSomething func(ip ...string) (string, error) //This is to be able to mock func in testing
+//This is to be able to replaced by mock func in testing or imported
+type DoSomething func(ip ...string) (map[string]string, error)
 
-type Target struct {
+type Targets struct {
 	hosts []string
+	community string
+	oid string
 	Action DoSomething
 }
 
-func doSomething (ip string) (string, error){ //ip address first and then whatever string you need
-	return ip, nil  //doNothing, just return ip addreses
+
+//i.e. GoSNMP(ip string, community string, oid string) (result map[string]string, err error)
+//Input: ip address first and then whatever string you need
+func doSomething (ip string) (map[string]string, error){
+	//doNothing, just return map with ip address as key and empty string as value
+	return map[string]string{ip:""}, nil
 }
 /* do Something with each string (IP address) in Target hosts within given timeout
 Input: Action and slice of target strings (IP addresses)
 Output: slice of IP addresses for which Action succeeded (no error)
  */
-func Slice2go(p *Target, timeout time.Duration) ([]string, error){
+func Slice2go(p *Targets, timeout time.Duration) ([]string, error){
 	concur := 100
 	if len(p.hosts) < concur {
 		concur = len(p.hosts)

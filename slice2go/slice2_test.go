@@ -7,13 +7,13 @@ import (
 
 )
 
-func mockAction(ip ...string) (string, error) {
+func mockAction(ip ...string) (map[string]string, error) {
 	//fmt.Printf("%s %T\n",string(ip[0]),string(ip[0]))
-	return string(ip[0]), nil //do Nothing
+	return map[string]string{string(ip[0]):""}, nil //do Nothing
 }
 
 func TestReadTargets(t *testing.T) {
-	p := Target {
+	p := Targets {
 		hosts: []string{"8.8.8.8", "1.1.1.1"},
 		Action: mockAction,
 	}

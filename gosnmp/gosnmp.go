@@ -8,10 +8,10 @@ import (
 Input: "10.199.107.1","public","1.3.6.1.2.1.1.4.0"
 Output: "irek romaniuk"
  */
-func GoSNMP(ip string, community string, oid string) (result string, err error) {
+func GoSNMP(ip string, community string, oid string) (result map[string]string, err error) {
 	s, err1 := gosnmp.NewGoSNMP(ip, community, gosnmp.Version2c, 5000)
 	if err1 != nil {
-		return "", err
+		return nil, err1
 	}
 	resp, err2 := s.Get(oid)
 	if err2 == nil {
@@ -19,11 +19,11 @@ func GoSNMP(ip string, community string, oid string) (result string, err error) 
 			switch v.Type {
 			case gosnmp.OctetString:
 				//log.Printf("Response: %s : %s : %s \n", v.Name, v.Value.(string), v.Type.String())
-				result = v.Value.(string)
+				result = map[string]string{ip:v.Value.(string)}
 			}
 		}
 	} else {
-		return "", err2
+		return nil, err2
 	}
 	return result, nil
 }
