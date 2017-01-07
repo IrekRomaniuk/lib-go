@@ -8,7 +8,10 @@ import (
 Input: "10.199.107.1","public","1.3.6.1.2.1.1.4.0"
 Output: "irek romaniuk"
  */
-func GoSNMP(ip string, community string, oid string) (result map[string]string, err error) {
+func GoSNMP(input ...string) (result map[string]string, err error) {
+	ip := input[0]
+	community := input[1]
+	oid := input[2]
 	s, err1 := gosnmp.NewGoSNMP(ip, community, gosnmp.Version2c, 5000)
 	if err1 != nil {
 		return nil, err1
