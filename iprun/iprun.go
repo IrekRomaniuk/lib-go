@@ -1,4 +1,4 @@
-package slice2go
+package iprun
 
 import (
 	"time"
@@ -26,7 +26,7 @@ func doSomething (ip string) (map[string]string, error){
 Input: Action and slice of target strings (IP addresses)
 Output: slice of IP addresses for which Action succeeded (no error)
  */
-func Slice2go(p *Targets, timeout time.Duration) ([]string, error){
+func RunIPs(p *Targets, timeout time.Duration) ([]string, error){
 	concur := 100
 	if len(p.hosts) < concur {
 		concur = len(p.hosts)

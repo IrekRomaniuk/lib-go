@@ -1,4 +1,4 @@
-package slice2go
+package iprun
 
 import (
 	"testing"
@@ -19,7 +19,7 @@ func TestReadTargets(t *testing.T) {
 	}
 	Convey("mock Action ", t, func() {
 		Convey("So Action is mocked", func() {
-			result, _ := Slice2go(&p, 5)
+			result, _ := RunIPs(&p, 5)
 			So(len(result), ShouldEqual,2)
 		})
 	})
