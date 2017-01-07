@@ -5,15 +5,15 @@ import (
 	"sync"
 )
 
-type DoSomething func(ip string) (string, error) //This is to be able to mock func in testing
+type DoSomething func(ip ...string) (string, error) //This is to be able to mock func in testing
 
 type Target struct {
 	hosts []string
 	Action DoSomething
 }
 
-func doSomething (ip ...string) (string, error){ //ip address first and then whatever string you need
-	return ip[0], nil  //doNothing, just return ip addreses
+func doSomething (ip string) (string, error){ //ip address first and then whatever string you need
+	return ip, nil  //doNothing, just return ip addreses
 }
 /* do Something with each string (IP address) in Target hosts within given timeout
 Input: Action and slice of target strings (IP addresses)
@@ -31,7 +31,7 @@ func Slice2go(p *Target, timeout time.Duration) ([]string, error){
 	c := func(host string) {
 		_ , err := p.Action(host)
 		if err == nil {
-			result=append(result, host)
+			result=append(result,host)
 		}
 		<-q
 		wg.Done()

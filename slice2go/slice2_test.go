@@ -3,10 +3,13 @@ package slice2go
 import (
 	"testing"
 	. "github.com/smartystreets/goconvey/convey"
+	_ "fmt"
+
 )
 
-func mockAction(ip string) (string, error) {
-	return ip, nil //do Nothing
+func mockAction(ip ...string) (string, error) {
+	//fmt.Printf("%s %T\n",string(ip[0]),string(ip[0]))
+	return string(ip[0]), nil //do Nothing
 }
 
 func TestReadTargets(t *testing.T) {
