@@ -14,7 +14,7 @@ func mockAction(ip ...string) (map[string]string, error) {
 
 func TestReadTargets(t *testing.T) {
 	p := Targets {
-		hosts: []string{"8.8.8.8", "1.1.1.1"},
+		Hosts: []string{"8.8.8.8", "1.1.1.1"},
 		Action: mockAction,
 	}
 	Convey("mock Action ", t, func() {
