@@ -16,7 +16,7 @@ func TestGoSNMP(t *testing.T) {
 	want := "irek romaniuk"
 
 //func GoSNMP(ip string, community string, oid string) (result string, err error)
-	if output, _ := GoSNMP(inputTest.ip, inputTest.community, inputTest.oid); output[inputTest.ip] != want {
+	if output, _ := GoSNMP(inputTest.ip, inputTest.community, inputTest.oid); output != want {
 		t.Fatalf("sysContact: got %v, want %v",output, want)
 	}
 }

@@ -5,14 +5,15 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 	_ "fmt"
 
+	"fmt"
 )
-
-func mockAction(ip ...string) (map[string]string, error) {
+//i.e. GoSNMP(ip string, community string, oid string) (result map[string]string, err error)
+func mockAction(ip ...string) (string, error) {
 	//fmt.Printf("%s %T\n",string(ip[0]),string(ip[0]))
-	return map[string]string{string(ip[0]):""}, nil //do Nothing
+	return string(ip[0]), nil //do Nothing
 }
 
-func TestReadTargets(t *testing.T) {
+func TestRunIPs(t *testing.T) {
 	p := Targets {
 		Hosts: []string{"8.8.8.8", "1.1.1.1"},
 		Action: mockAction,
@@ -20,6 +21,7 @@ func TestReadTargets(t *testing.T) {
 	Convey("mock Action ", t, func() {
 		Convey("So Action is mocked", func() {
 			result, _ := RunIPs(&p, 5)
+			fmt.Println(result)
 			So(len(result), ShouldEqual,2)
 		})
 	})
