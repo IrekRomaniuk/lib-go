@@ -13,6 +13,16 @@ func TestReadTargets(t *testing.T) {
 			So(len(hosts), ShouldEqual,4)
 		})
 	})
+	Convey("Type of output slice and first entry value to be 8.8.8.8 ", t, func() {
+		target := "./iplist.txt"
+		hosts, _ := ReadIPs(target)
+		Convey("So iplist.txt should be moved to slice of integers", func() {
+			So(hosts[0], ShouldHaveSameTypeAs,"8.8.8.8")
+		})
+		Convey("anfd first entry in iplist.txt should is 8.8.8.8", func() {
+			So(hosts[0], ShouldEqual,"8.8.8.8")
+		})
+	})
 	Convey("File iplist.txt does not exists", t, func() {
 		target := "./tmp/xxx/iplist.txt"
 		_, err := ReadIPs(target)

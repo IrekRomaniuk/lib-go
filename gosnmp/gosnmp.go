@@ -12,7 +12,7 @@ func GoSNMP(input ...string) (result string, err error) {
 	ip := input[0]
 	community := input[1]
 	oid := input[2]
-	s, err1 := gosnmp.NewGoSNMP(ip, community, gosnmp.Version2c, 5000)
+	s, err1 := gosnmp.NewGoSNMP(ip, community, gosnmp.Version2c, 5)
 	if err1 != nil {
 		return "", err1
 	}
