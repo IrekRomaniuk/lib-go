@@ -7,13 +7,11 @@ import (
 )
 
 func TestRunIPs(t *testing.T) {
-
-	}
-	Convey("mock Action ", t, func() {
-		Convey("So Action is mocked", func() {
-			result, _ := RunIPs(&p, 5)
+	Convey("geoip ", t, func() {
+		Convey("So geoip", func() {
+			result := Geo("www.devdungeon.com")
 			fmt.Println(result)
-			So(len(result), ShouldEqual,2)
+			//So(len(result), ShouldEqual,2)
 		})
 	})
 
