@@ -40,6 +40,29 @@ func readHosts(path string) ([]string, error) {
 	return lines, scanner.Err()
 }
 
+func ReadIPMaps(path string) (map[string]string, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var lines []string
+	result := make(map[string]string,)
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if line != "" {
+			if lines = strings.Fields(line); len(lines) == 2 {
+				k,v := lines[0], lines[1]
+				result[k]=v
+			}
+
+		}
+	}
+	return result, scanner.Err()
+}
+
 func pathExists(path string) (bool) {
 	_, err := os.Stat(path)
 	if err == nil { return true }
