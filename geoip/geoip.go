@@ -28,9 +28,10 @@ var (
 	response *http.Response
 	body     []byte
 )
-
-func Geo(address string, url string) (geo GeoIP, err error) {
-
+//type DoSomething func(ip ...string) (string, error)
+func Geo(input ...string) (geo GeoIP, err error) {
+	address := input[0]
+	url := input[1]
 	// Use freegeoip.net to get a JSON response
 	// There is also /xml/ and /csv/ formats available
 	response, err = http.Get(url + address)  //"https://freegeoip.net/json/"

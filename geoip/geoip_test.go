@@ -6,9 +6,14 @@ import (
 )
 
 func TestRunIPs(t *testing.T) {
+	type input struct {
+		address, url string
+	}
+	var inputTest = []input{{"68.14.2.46","http://10.29.21.200:8080/json/"},
+	{"68.14.2.46","https://freegeoip.net/json/"}}
 	Convey("geoip 68.14.2.46", t, func() {
 		Convey("So geoip with http://10.29.21.200:8080/json/", func() {
-			geo, _ := Geo("68.14.2.46","http://10.29.21.200:8080/json/")
+			geo, _ := Geo(inputTest[0].address,inputTest[0].url)
 			So(geo.Ip, ShouldEqual,"68.14.2.46")
 			So(geo.CountryCode, ShouldEqual,"US")
 			So(geo.City, ShouldEqual,"Woonsocket")
@@ -16,7 +21,7 @@ func TestRunIPs(t *testing.T) {
 			So(geo.Zipcode, ShouldEqual,"02895")
 		})
 		Convey("So geoip with https://freegeoip.net/json/", func() {
-			geo, _ := Geo("68.14.2.46","https://freegeoip.net/json/")
+			geo, _ := Geo(inputTest[1].address,inputTest[1].url)
 			So(geo.Ip, ShouldEqual,"68.14.2.46")
 			So(geo.CountryCode, ShouldEqual,"US")
 			So(geo.City, ShouldEqual,"Woonsocket")

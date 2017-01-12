@@ -21,23 +21,23 @@ func TestReadTargets(t *testing.T) {
 			So(len(hostsmap), ShouldEqual,5)
 		})
 	})
-	Convey("Type of output slice and first entry value to be 8.8.8.8 ", t, func() {
+	Convey("Type of slice and first address", t, func() {
 		target := "./iplist.txt"
 		hosts, _ := ReadIPs(target)
-		Convey("So iplist.txt should be moved to slice of integers", func() {
+		Convey("So iplist.txt should be moved to slice of strings", func() {
 			So(hosts[0], ShouldHaveSameTypeAs,"8.8.8.8")
 		})
-		Convey("anfd first entry in iplist.txt should is 8.8.8.8", func() {
+		Convey("and first address in iplist.txt should be 8.8.8.8", func() {
 			So(hosts[0], ShouldEqual,"8.8.8.8")
 		})
 	})
-	Convey("Type of output and first pair ", t, func() {
+	Convey("Type of map and first address pair", t, func() {
 		target := "./iplist2.txt"
 		hostsmap, _ := ReadIPMaps(target)
-		Convey("So iplist.txt should be moved to slice of integers", func() {
+		Convey("So iplist2.txt should be moved to map of strings", func() {
 			So(hostsmap["10.199.207.1"], ShouldHaveSameTypeAs,"98.175.15.13")
 		})
-		Convey("anfd first entry in iplist.txt should is 8.8.8.8", func() {
+		Convey("and first entry in iplist2.txt should be (10.199.207.1, 98.175.15.13)", func() {
 			So(hostsmap["10.199.207.1"], ShouldEqual,"98.175.15.13")
 		})
 	})
