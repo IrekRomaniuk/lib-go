@@ -3,8 +3,6 @@ package iprun
 import (
 	"testing"
 	. "github.com/smartystreets/goconvey/convey"
-	_ "fmt"
-
 	"fmt"
 )
 //i.e. GoSNMP(ip string, community string, oid string) (result map[string]string, err error)
