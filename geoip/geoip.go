@@ -1,5 +1,5 @@
 package geoip
-//http://www.devdungeon.com/content/ip-geolocation-go
+//based on http://www.devdungeon.com/content/ip-geolocation-go
 import (
 	"encoding/json"
 	"io/ioutil"
