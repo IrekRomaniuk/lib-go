@@ -70,7 +70,7 @@ func pathExists(path string) (bool) {
 	return true
 }
 //https://www.socketloop.com/tutorials/golang-validate-ip-address
-func validIP4(ip string) bool {
+func ValidIP4(ip string) bool {
 	ip = strings.Trim(ip, " ")
 
 	re, _ := regexp.Compile(`^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`)
