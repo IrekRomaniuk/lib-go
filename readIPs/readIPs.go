@@ -31,7 +31,7 @@ func readHosts(path string) ([]string, error) {
 		line := scanner.Text()
 		if line != "" {
 			// omit line if empty
-			if validIP4(line) {
+			if ValidIP4(line) {
 				lines = append(lines, scanner.Text())
 			}
 
