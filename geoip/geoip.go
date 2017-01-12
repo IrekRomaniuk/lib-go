@@ -2,7 +2,6 @@ package geoip
 //http://www.devdungeon.com/content/ip-geolocation-go
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -15,7 +14,7 @@ type GeoIP struct {
 	RegionCode  string  `json:"region_code"`
 	RegionName  string  `json:"region_name"`
 	City        string  `json:"city"`
-	Zipcode     string  `json:"zipcode"`
+	Zipcode     string  `json:"zip_code"`
 	Lat         float32 `json:"latitude"`
 	Lon         float32 `json:"longitude"`
 	MetroCode   int     `json:"metro_code"`
@@ -29,44 +28,29 @@ var (
 	response *http.Response
 	body     []byte
 )
-// Provide a domain name or IP address
-// address = "2600:3c00::f03c:91ff:fe98:c0f5"
-// address = "45.79.8.237"
-func Geo(address string) (geo GeoIP) {
+
+func Geo(address string, url string) (geo GeoIP, err error) {
 
 	// Use freegeoip.net to get a JSON response
 	// There is also /xml/ and /csv/ formats available
-	response, err = http.Get("https://freegeoip.net/json/" + address)
+	response, err = http.Get(url + address)  //"https://freegeoip.net/json/"
 	if err != nil {
-		fmt.Println(err)
+		return GeoIP{}, err
 	}
 	defer response.Body.Close()
-	// response.Body() is a reader type. We have
-	// to use ioutil.ReadAll() to read the data
-	// in to a byte slice(string)
+
 	body, err = ioutil.ReadAll(response.Body)
 	if err != nil {
-		fmt.Println(err)
+		return GeoIP{}, err
 	}
 
 	// Unmarshal the JSON byte slice to a GeoIP struct
 	err = json.Unmarshal(body, &geo)
 	if err != nil {
-		fmt.Println(err)
+		return GeoIP{}, err
 	}
 
-	// Everything accessible in struct now
-	fmt.Println("\n==== IP Geolocation Info ====\n")
-	fmt.Println("IP address:\t", geo.Ip)
-	fmt.Println("Country Code:\t", geo.CountryCode)
-	fmt.Println("Country Name:\t", geo.CountryName)
-	fmt.Println("Zip Code:\t", geo.Zipcode)
-	fmt.Println("Latitude:\t", geo.Lat)
-	fmt.Println("Longitude:\t", geo.Lon)
-	fmt.Println("Metro Code:\t", geo.MetroCode)
-	fmt.Println("Area Code:\t", geo.AreaCode)
-
-	return geo
+	return geo, nil
 
 }
 
