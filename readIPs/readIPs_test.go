@@ -49,3 +49,16 @@ func TestReadTargets(t *testing.T) {
 		})
 	})
 }
+
+func TestRemoveDuplicates(t *testing.T) {
+	input := `1.1.1.1 2.2.2.2	22222	App test	file	low	test	This is test only
+	         1.1.1.1 2.2.2.2	22222	App test	file	low	test	This is test only
+	         1.1.1.1 2.2.2.2	22222	App test	file	low	test	This is test only`
+	removed := `1.1.1.1 2.2.2.2	22222	App test	file	low	test	This is test only`
+
+	output, _ := RemoveDuplicates(input)
+	Convey("Remove Duplicates from input", t, func() {
+		So(removed, ShouldEqual, output)
+	})
+
+}

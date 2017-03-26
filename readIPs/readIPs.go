@@ -63,6 +63,10 @@ func ReadIPMaps(path string) (map[string]string, error) {
 	return result, scanner.Err()
 }
 
+func RemoveDuplicates(data interface{}) (interface{}, error) {
+	return nil, nil
+}
+
 func pathExists(path string) (bool) {
 	_, err := os.Stat(path)
 	if err == nil { return true }
