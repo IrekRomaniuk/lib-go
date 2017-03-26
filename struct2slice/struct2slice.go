@@ -10,8 +10,6 @@ type Manystrings struct {
 	string3 string
 }
 
-var Session2slice []string
-
 func Struct2slice(somestruct Manystrings) []string {
 
 	v := reflect.ValueOf(somestruct)
