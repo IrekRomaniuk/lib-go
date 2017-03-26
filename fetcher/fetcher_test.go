@@ -8,7 +8,7 @@ import (
 type fakeFetcher struct{}
 
 func (fetcher fakeFetcher) Fetch(url string) ([]byte, error) {
-	fmt.Printf("Fake fetcher%s\n", url)
+	fmt.Printf("Fake fetcher of %s\n", url)
 	return []byte{}, nil
 }
 

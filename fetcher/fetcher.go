@@ -14,10 +14,10 @@ type HttpResponseFetcher interface {
 type realFetcher struct{}
 
 func Crawl(fetcher HttpResponseFetcher) error {
-	_, err := fetcher.Fetch("http://google.com")
+	response, err := fetcher.Fetch("http://google.com")
 	if err == nil {
 		//Do Smth
-		fmt.Println("Crawling..")
+		fmt.Printf("Crawling..%d\n", len(response))
 		if err == nil {
 			return nil
 		}
