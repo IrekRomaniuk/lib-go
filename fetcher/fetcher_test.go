@@ -1,20 +1,24 @@
 package fetcher
 
 import (
-	"testing"
-	"fmt"
+"testing"
+"fmt"
 )
 
-type fakeFetcher struct{}
-
-func (fetcher fakeFetcher) Fetch(url string) ([]byte, error) {
+func mock_get_page(url string) ([]byte, error){
+	// mock your 'get_page()' function here
 	fmt.Printf("Fake fetcher of %s\n", url)
 	return []byte{}, nil
 }
 
 func TestFetcher(t *testing.T) {
-	var fake fakeFetcher
-	//var real realFetcher
-	Crawl(fake)
-	//Crawl(real)
+	//--------Method1------------------------------------------------------------------
+	fmt.Println("---------------------Method1---------------------")
+	downloader(mock_get_page, "http://google.com")
+	//--------Method2------------------------------------------------------------------
+	fmt.Println("---------------------Method2---------------------")
+	d := NewDownloader(mock_get_page)
+	d.download("http://google.com")
+	fmt.Println("-------------------------------------------------")
+
 }

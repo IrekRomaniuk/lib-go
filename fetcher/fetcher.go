@@ -1,32 +1,27 @@
 package fetcher
-//http://relistan.com/writing-testable-apps-in-go/
+//http://stackoverflow.com/questions/19167970/mock-functions-in-go
 import (
+	"crypto/tls"
 	"io/ioutil"
 	"net/http"
 	"fmt"
-	"crypto/tls"
 )
 
-type HttpResponseFetcher interface {
-	Fetch(url string) ([]byte, error)
-}
+//--------Method1------------------------------------------------------------------
 
-type realFetcher struct{}
+type PageGetter func(url string) ([]byte, error)
 
-func Crawl(fetcher HttpResponseFetcher) error {
-	response, err := fetcher.Fetch("http://google.com")
-	if err == nil {
-		//Do Smth
-		fmt.Printf("Crawling..%d\n", len(response))
-		if err == nil {
-			return nil
-		}
+func downloader(pageGetterFunc PageGetter, url string) error{
+	content, err := pageGetterFunc(url)
+	if err != nil {
+		return err
 	}
-	return err
+	fmt.Printf("Crawling..%d\n", len(content))
+
+	return nil
 }
 
-
-func (fetcher realFetcher) Fetch(url string) ([]byte, error) {
+func get_page(url string) ([]byte, error) {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -43,17 +38,22 @@ func (fetcher realFetcher) Fetch(url string) ([]byte, error) {
 	return htmlData, nil
 }
 
-/*func (fetcher realFetcher) Fetch(url string) ([]byte, error) {
-	response, err := http.Get(url)
-	if err != nil {
-		return nil, err
-	}
+//--------Method2------------------------------------------------------------------
+type Downloader struct {
+	get_page PageGetter
+}
 
-	defer response.Body.Close()
-	fmt.Printf("Real fetcher %s\n", url)
-	contents, err := ioutil.ReadAll(response.Body)
+func NewDownloader(pg PageGetter) *Downloader {
+	return &Downloader{get_page: pg}
+}
+
+func (d *Downloader) download(url string) error {
+
+	content, err := d.get_page(url)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return contents, nil
-}*/
+	fmt.Printf("Crawling..%d\n", len(content))
+
+	return nil
+}
