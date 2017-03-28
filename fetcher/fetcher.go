@@ -21,6 +21,7 @@ func downloader(pageGetterFunc PageGetter, url string) error{
 	return nil
 }
 
+
 func get_page(url string) ([]byte, error) {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
@@ -47,13 +48,14 @@ func NewDownloader(pg PageGetter) *Downloader {
 	return &Downloader{get_page: pg}
 }
 
-func (d *Downloader) download(url string) error {
+//fetching url and printing content length
+func (d *Downloader) download(url string) ([]byte,error) {
 
 	content, err := d.get_page(url)
 	if err != nil {
-		return err
+		return []byte{},err
 	}
 	fmt.Printf("Crawling..%d\n", len(content))
 
-	return nil
+	return content, nil
 }
