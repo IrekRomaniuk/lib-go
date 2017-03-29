@@ -17,7 +17,7 @@ type Vertex2 struct {
 type SubVertex struct {
 	Z string
 }
-
+//
 func get_field1(v *Vertex1, field string) string {
 	r := reflect.ValueOf(v)
 	f := reflect.Indirect(r).FieldByName(field)
